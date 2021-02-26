@@ -1,6 +1,6 @@
 # Race_center
 A Race center for time and lap tracking. Designed for a Märklin Sprint slot car race track. Scale 1:32.
-Design is on Thingiverse.
+Design is on Thingiverse: https://www.thingiverse.com/thing:4776451
 
 Features:
 -	Training: count up time and laps
