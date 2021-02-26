@@ -144,7 +144,7 @@ def Rennen(): #Statemachine = 30
 			g.im_rennen = False
 			t.Fanfahre()
 	if g.im_rennen == True:
-		min,sec = divmod(g.Quali_Zeit - g.timer_time,60)
+		min,sec = divmod(g.timer_time,60)
 	
 		for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 			for j in range(0,2):

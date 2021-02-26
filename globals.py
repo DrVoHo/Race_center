@@ -1,10 +1,10 @@
 Anzahl_Spuren = 0  #number off tracks - depends on number of Sensors (Port_IO: SEN array)
 
-english = True
+english = False
 
 Boot_time = 0.0
 
-Debounce = 1000
+Debounce = 50
 
 Statemachine = 0
 
