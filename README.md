@@ -12,7 +12,8 @@ Features:
 -	No dependency on track position – can be placed on any place, because sensor is not placed inside the lane.
 
 Installation:
-- copy all files (including pad4pi folder) to the /home/pi directory
+- copy all files to the /home/pi directory
+- create pad4pi folder in /home/pi and unzip pad4pi.zip to it
 - activate I2C bus with raspi-config
 - enable boot without login
 - sudo apt-get install i2c-tools
@@ -25,4 +26,4 @@ To start script on boot modify /etc/rc.local and insert following line just befo
 sudo -H -u pi python3 /home/pi/Race_center.py  &
 
 Port_IO.py needs to be adjusted to the used configuration. To distinguish between 2 and 4 track configuration just define only 2 sensors. Everything else will be adjusted. 
-Change language in globals.py by setting 'english = True' (False will enable German)
+Choose english language in globals.py by setting 'english = True' (False will enable German)
