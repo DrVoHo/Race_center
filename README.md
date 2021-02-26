@@ -23,6 +23,7 @@ Installation:
 - pip3 install adafruit-pca9685
 
 To start script on boot modify /etc/rc.local and insert following line just before  'exit 0'
+
 sudo -H -u pi python3 /home/pi/Race_center.py  &
 
 Port_IO.py needs to be adjusted to the used configuration. To distinguish between 2 and 4 track configuration just define only 2 sensors. Everything else will be adjusted. 
