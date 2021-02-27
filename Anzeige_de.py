@@ -136,13 +136,8 @@ def Rennen(): #Statemachine = 30
 	global g
 	global Message
 	temp=["","","","","","","",""]
-
-	for i in range (0,g.Anzahl_Spuren):  #check if race is done
 	
-		if g.Rennen_Runden - g.Fahrzeug_list[i].Anzahl_Runden-g.Fahrzeug_list[i].Vorsprung<=0 and g.Track_in_use[i] == False:
-			g.gefahrene_Zeit = g.timer_time
-			g.im_rennen = False
-			t.Fanfahre()
+
 	if g.im_rennen == True:
 		min,sec = divmod(g.timer_time,60)
 	

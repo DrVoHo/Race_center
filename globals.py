@@ -4,7 +4,7 @@ english = False
 
 Boot_time = 0.0
 
-Debounce = 50
+Debounce = 100
 
 Statemachine = 0
 

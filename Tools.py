@@ -23,7 +23,12 @@ def Sen_trig(channel,index):
 	else: 
 		g.Sensor_list[index] = False    #Fahrzeug erkannt; Zeitmessung bei Einfahrt in die Lichtschranke
 		LED_W_on(p.LED_W[index])	
-		if g.im_rennen == True:
+		if g.im_rennen == True and g.Track_in_use[index] == False:
+			g.Fahrzeug_list[index].Anzahl_Runden += 1		
+			if g.Rennen_Runden - g.Fahrzeug_list[index].Anzahl_Runden-g.Fahrzeug_list[index].Vorsprung<=0 and g.Statemachine == 30:
+					g.gefahrene_Zeit = g.timer_time
+					g.im_rennen = False
+					Fanfahre()		
 			zeit = g.timer_time
 			g.Fahrzeug_list[index].Zeit_letzte_Runde = zeit - g.Fahrzeug_list[index].Zeit_Runde_Start
 			if g.Fahrzeug_list[index].Zeit_letzte_Runde >99.99:
@@ -31,8 +36,7 @@ def Sen_trig(channel,index):
 			if g.Fahrzeug_list[index].Zeit_letzte_Runde < g.Fahrzeug_list[index].Zeit_beste_Runde:
 				g.Fahrzeug_list[index].Zeit_beste_Runde = g.Fahrzeug_list[index].Zeit_letzte_Runde
 			g.Fahrzeug_list[index].Zeit_Runde_Start = zeit
-			if g.Track_in_use[index] == False:
-				g.Fahrzeug_list[index].Anzahl_Runden += 1
+			
 	print (index+1)
 		
 def Sen_LED_off(channel,index):
