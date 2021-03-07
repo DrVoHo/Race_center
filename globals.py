@@ -4,7 +4,7 @@ english = False
 
 Boot_time = 0.0
 
-Debounce = 100
+Debounce = 1000
 
 Statemachine = 0
 
@@ -14,6 +14,7 @@ Gesamtzeit = 0
 gefahrene_Zeit=0
 
 timer_time = 0.0
+time_jump = 0.0
 
 Quali_Zeit = 600    #time for Quali in seconds
 

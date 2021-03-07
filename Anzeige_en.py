@@ -77,6 +77,9 @@ def Training(): #Statemachine = 10
 	for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 		Message[4*i] ="  %0.3u  Laps      %0.3u" %(g.Fahrzeug_list[2*i].Anzahl_Runden, g.Fahrzeug_list[2*i+1].Anzahl_Runden)
 		min,sec = divmod(g.timer_time,60)
+		if g.timer_time > 6000:
+			min = 99
+			sec = 59
 		Message[4*i+1] ="%0.2u:%0.2u   Time   %0.2u:%0.2u"%(min,sec,min,sec)
 	
 	Rundenzeit()
@@ -139,7 +142,9 @@ def Rennen(): #Statemachine = 30
 	
 	if g.im_rennen == True:
 		min,sec = divmod(g.timer_time,60)
-	
+		if g.timer_time > 6000:
+			min = 99
+			sec = 59
 		for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 			for j in range(0,2):
 				if g.Track_in_use[2*i+j] == False:  #Track in use - inverted logic
@@ -165,7 +170,11 @@ def Rundenzeit():
 		for j in range(0,2):
 			if g.Track_in_use[2*i+j] == False:  #Track in use - inverted logic
 				temp[4*i+2*j] = "%05.2f"%(g.Fahrzeug_list[2*i+j].Zeit_letzte_Runde)
+				if g.Fahrzeug_list[2*i+j].Zeit_letzte_Runde >99.99:
+					temp[4*i+2*j]="99.99"
 				temp[4*i+2*j+1] ="%05.2f"%(g.Fahrzeug_list[2*i+j].Zeit_beste_Runde)
+				if g.Fahrzeug_list[2*i+j].Zeit_beste_Runde >99.99:
+					temp[4*i+2*j+1]="99.99"
 				if g.Fahrzeug_list[2*i+j].Zeit_beste_Runde == 99.99:
 					temp[4*i+2*j+1]	="--:--"
 			else:
@@ -180,7 +189,9 @@ def Rundenzeit():
 def Ergebnis():
 	temp=["","","","","","","",""]
 	min,sec = divmod(g.gefahrene_Zeit,60)
-	
+	if g.gefahrene_Zeit > 6000:
+			min = 99
+			sec = 59
 	for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 		for j in range(0,2):
 			if g.Track_in_use[2*i+j] == False:  #Track in use - inverted logic

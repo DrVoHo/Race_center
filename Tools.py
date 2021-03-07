@@ -85,10 +85,14 @@ def LED_off(port):
 def my_timer():
 	global g
 	global p
-
+	last_time=0
 	while True:
 #        g.timer_time += 0.01
-		g.timer_time = time.time() - g.Boot_time
+		g.timer_time = time.time() - g.Boot_time -g.time_jump
+		if g.timer_time - last_time > 10:  #time synchro with internet
+			g.time_jump = g.timer_time - last_time -0.1
+			g.timer_time = last_time + 0.1
+		last_time = g.timer_time
 		time.sleep(0.1)
 		for j in p.SEN:
 			if GPIO.input(j)==True: #kein Fahrzeug.
@@ -129,6 +133,7 @@ def init_race():
 			g.Fahrzeug_list[i].Vorsprung = 0
 	g.timer_time = 0
 	g.Boot_time = time.time()
+	g.time_jump = 0
 	g.gefahrene_Zeit=0
 	
 def Buzzer_out(sec):
