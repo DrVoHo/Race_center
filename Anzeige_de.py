@@ -17,13 +17,19 @@ Message = []  #index 0-3: LCD A; index 4-7 LCD B
 def Anzeige():
 	global g
 	global Message
+	last_time=0
+	
 	for i in range(0,8):
 		Message.append("")   #index 0-3: LCD A; index 4-7 LCD B
 	
 
 	while True:
 		
-		time.sleep(0.1)
+#		time.sleep(0.5)
+		
+		t.check_time()   # time jump after boot?
+		t.check_sens()   # car under sensor? No: switch off LED
+		
 		print(g.Statemachine)
 		if g.Statemachine == 0:  #Startschirm
 			Startschirm()
@@ -76,8 +82,8 @@ def Training(): #Statemachine = 10
 	global Message
 	for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 		Message[4*i] ="  %0.3u  Runden    %0.3u" %(g.Fahrzeug_list[2*i].Anzahl_Runden, g.Fahrzeug_list[2*i+1].Anzahl_Runden)
-		min,sec = divmod(g.timer_time,60)
-		if g.timer_time > 6000:
+		min,sec = divmod(t.timer_time(),60)
+		if t.timer_time() > 6000:
 			min = 99
 			sec = 59
 		Message[4*i+1] ="%0.2u:%0.2u   Zeit   %0.2u:%0.2u"%(min,sec,min,sec)
@@ -90,9 +96,9 @@ def Quali():  #Statemachine = 20
 	temp=["","","","","","","",""]
 	global Message
 
-	if g.Quali_Zeit >= g.timer_time:
+	if g.Quali_Zeit >= t.timer_time():
 
-		min,sec = divmod(g.Quali_Zeit - g.timer_time,60)
+		min,sec = divmod(g.Quali_Zeit - t.timer_time(),60)
 
 		for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 			for j in range(0,2):
@@ -110,7 +116,7 @@ def Quali():  #Statemachine = 20
 		Rundenzeit()
 	else: 
 		g.im_rennen = False
-		g.gefahrene_Zeit = g.timer_time
+		g.gefahrene_Zeit = t.timer_time()
 		t.Fanfahre()
 	return(g.im_rennen)
 
@@ -142,8 +148,8 @@ def Rennen(): #Statemachine = 30
 	
 
 	if g.im_rennen == True:
-		min,sec = divmod(g.timer_time,60)
-		if g.timer_time > 6000:
+		min,sec = divmod(t.timer_time(),60)
+		if t.timer_time() > 6000:
 			min = 99
 			sec = 59
 		for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display

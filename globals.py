@@ -13,8 +13,9 @@ Gesamtzeit = 0
 
 gefahrene_Zeit=0
 
-timer_time = 0.0
+# timer_time = 0.0
 time_jump = 0.0
+last_time = 0.0
 
 Quali_Zeit = 600    #time for Quali in seconds
 

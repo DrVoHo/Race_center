@@ -46,8 +46,8 @@ for i in  p.SEN:
 		t.LED_W_on(p.LED_W[p.SEN.index(i)])	
 
 
-s = Thread(target=t.my_timer)     #separate timer function, because system time can change after accessing network (internet)
-s.start()
+# s = Thread(target=t.my_timer)     #separate timer function, because system time can change after accessing network (internet)
+# s.start()
 
 
 d = Thread(target=a.Anzeige)  #Anzeige (Display) loop

@@ -63,11 +63,11 @@ def Keyaction():
 	if g.Statemachine == 10:        #Training 
 		if g.im_rennen == False:
 			g.im_rennen = True
-			t.init_race()
+
 			g.Track_in_use.clear()
 			for i in range( 0, g.Anzahl_Spuren):
 				g.Track_in_use.append(False)  #all tracks are enabled
-			
+			t.init_race()
 		if len(g.Keybuffer) != 0:
 #			if g.Keybuffer[0] =="*": # Abbruch Training und zurück ins Hauptmenu
 			g.Statemachine = 0

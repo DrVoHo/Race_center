@@ -26,10 +26,10 @@ def Sen_trig(channel,index):
 		if g.im_rennen == True and g.Track_in_use[index] == False:
 			g.Fahrzeug_list[index].Anzahl_Runden += 1		
 			if g.Rennen_Runden - g.Fahrzeug_list[index].Anzahl_Runden-g.Fahrzeug_list[index].Vorsprung<=0 and g.Statemachine == 30:
-					g.gefahrene_Zeit = g.timer_time
+					g.gefahrene_Zeit = timer_time()
 					g.im_rennen = False
 					Fanfahre()		
-			zeit = g.timer_time
+			zeit = timer_time()
 			g.Fahrzeug_list[index].Zeit_letzte_Runde = zeit - g.Fahrzeug_list[index].Zeit_Runde_Start
 			if g.Fahrzeug_list[index].Zeit_letzte_Runde >99.99:
 				g.Fahrzeug_list[index].Zeit_letzte_Runde = 99.99
@@ -82,28 +82,44 @@ def LED_off(port):
 
 
 
-def my_timer():
-	global g
-	global p
-	last_time=0
-	while True:
+# def my_timer():
+#	global g
+#	global p
+#	last_time=0
+#	while True:
 #        g.timer_time += 0.01
-		g.timer_time = time.time() - g.Boot_time -g.time_jump
-		if g.timer_time - last_time > 10:  #time synchro with internet
-			g.time_jump = g.timer_time - last_time -0.1
-			g.timer_time = last_time + 0.1
-		last_time = g.timer_time
-		time.sleep(0.1)
-		for j in p.SEN:
-			if GPIO.input(j)==True: #kein Fahrzeug.
-				g.Sensor_list[p.SEN.index(j)]=True
-				LED_off(p.LED_W[p.SEN.index(j)]) 
+#		g.timer_time = time.time() - g.Boot_time -g.time_jump
+#		if g.timer_time - last_time > 10:  #time synchro with internet
+#			g.time_jump = g.timer_time - last_time -0.1
+#			g.timer_time = last_time + 0.1
+#		last_time = g.timer_time
+#		time.sleep(0.1)
+#		for j in p.SEN:
+#			if GPIO.input(j)==True: #kein Fahrzeug.
+#				g.Sensor_list[p.SEN.index(j)]=True
+#				LED_off(p.LED_W[p.SEN.index(j)]) 
 
 
+def timer_time():
+	global g
+	return time.time() - g.Boot_time - g.time_jump
 
 
+def check_time():
+	global g
+	if timer_time() - g.last_time > 10:  #time synchro with internet
+		g.time_jump = timer_time() - g.last_time - 0.1
+	g.last_time = timer_time()
 
 
+def check_sens():
+	global g
+	for j in p.SEN:
+		if GPIO.input(j)==True: #kein Fahrzeug.
+			g.Sensor_list[p.SEN.index(j)]=True
+			LED_off(p.LED_W[p.SEN.index(j)]) 
+		
+		
 
 
 def Startampel():
@@ -131,7 +147,7 @@ def init_race():
 		if g.Track_in_use[i] == True: #inverted logic!
 			g.Fahrzeug_list[i].Anzahl_Runden = g.Rennen_Runden
 			g.Fahrzeug_list[i].Vorsprung = 0
-	g.timer_time = 0
+#	g.timer_time = 0
 	g.Boot_time = time.time()
 	g.time_jump = 0
 	g.gefahrene_Zeit=0
