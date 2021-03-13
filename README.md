@@ -4,7 +4,7 @@ Design is on Thingiverse: https://www.thingiverse.com/thing:4776451
 
 Features:
 -	Training: count up time and laps
-                    by pressing A...D the statistic of the according vehicle can be reseted
+-	  by pressing A...D the statistic of the according vehicle can be reseted
 -	Qualification: count down time
 -	Race: count down laps
 -	Advantage (laps in advance) for weak driver or slower cars or compensation for unbalanced track
