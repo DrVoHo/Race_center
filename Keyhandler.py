@@ -69,9 +69,12 @@ def Keyaction():
 				g.Track_in_use.append(False)  #all tracks are enabled
 			t.init_race()
 		if len(g.Keybuffer) != 0:
-#			if g.Keybuffer[0] =="*": # Abbruch Training und zurück ins Hauptmenu
-			g.Statemachine = 0
-			g.im_rennen = False
+			i = ord(g.Keybuffer[0])
+			if i >= 65 and i <= 68:			#A - D pressed
+				t.clear_vehicle(i-65)
+			else:	
+				g.Statemachine = 0
+				g.im_rennen = False
 			g.Keybuffer =""
 			return
 	

@@ -152,6 +152,15 @@ def init_race():
 	g.time_jump = 0
 	g.gefahrene_Zeit=0
 	
+def clear_vehicle(i):
+	global g
+	g.Fahrzeug_list[i].Zeit_Runde_Start = timer_time()
+	g.Fahrzeug_list[i].Zeit_letzte_Runde = 0.0
+	g.Fahrzeug_list[i].Zeit_beste_Runde = 99.99
+	g.Fahrzeug_list[i].Anzahl_Runden = 0
+	g.Fahrzeug_list[i].Vorsprung = 0
+
+
 def Buzzer_out(sec):
 	GPIO.output(p.Buzzer, True)
 	time.sleep(sec)
