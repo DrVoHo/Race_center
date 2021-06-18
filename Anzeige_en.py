@@ -152,7 +152,7 @@ def Rennen(): #Statemachine = 30
 		for i in range(0,int(g.Anzahl_Spuren/2)): #max 2 display
 			for j in range(0,2):
 				if g.Track_in_use[2*i+j] == False:  #Track in use - inverted logic
-					temp[4*i+2*j] = "%0.3u"%(g.Rennen_Runden-g.Fahrzeug_list[2*i+j].Anzahl_Runden+g.Fahrzeug_list[2*i+j].Vorsprung)
+					temp[4*i+2*j] = "%0.3u"%(g.Rennen_Runden-g.Fahrzeug_list[2*i+j].Anzahl_Runden-g.Fahrzeug_list[2*i+j].Vorsprung)
 					temp[4*i+2*j+1] ="%0.2u:%0.2u"%(min,sec)
 				else:
 					temp[4*i+2*j] = "   "
