@@ -14,6 +14,8 @@ LED = Adafruit_PCA9685.PCA9685(address=p.PWM_EXP)
 
 LED.frequency = 60
 
+Flip = True #toggle LED after qualification/race is finished
+
 def Sen_trig(channel,index):
 	global g
 
@@ -82,24 +84,6 @@ def LED_off(port):
 
 
 
-# def my_timer():
-#	global g
-#	global p
-#	last_time=0
-#	while True:
-#        g.timer_time += 0.01
-#		g.timer_time = time.time() - g.Boot_time -g.time_jump
-#		if g.timer_time - last_time > 10:  #time synchro with internet
-#			g.time_jump = g.timer_time - last_time -0.1
-#			g.timer_time = last_time + 0.1
-#		last_time = g.timer_time
-#		time.sleep(0.1)
-#		for j in p.SEN:
-#			if GPIO.input(j)==True: #kein Fahrzeug.
-#				g.Sensor_list[p.SEN.index(j)]=True
-#				LED_off(p.LED_W[p.SEN.index(j)]) 
-
-
 def timer_time():
 	global g
 	return time.time() - g.Boot_time - g.time_jump
@@ -125,14 +109,14 @@ def check_sens():
 def Startampel():
 #for i in range(90, 100):
 
-	for j in range (1,6):
-		LED_R_on(j)
-		LED_R_on(j+8)
+	for j in range (0,5):
+		LED_R_on(p.LED_R[j])
+		LED_R_on(p.LED_R[j+5])
 		time.sleep(1)
 
-	for j in range(1,6):
-		LED_off(j)    
-		LED_off(j+8) 
+	for j in range(0,5):
+		LED_off(p.LED_R[j])    
+		LED_off(p.LED_R[j+5]) 
 
 
 def init_race():
@@ -172,3 +156,37 @@ def Fanfahre():
 	Buzzer_out(0.2)
 	time.sleep(0.2)
 	Buzzer_out(1)
+	
+def toggle_LED():
+	global Flip
+	
+	if Flip == True:
+		LED_R_on(p.LED_R[0])
+		LED_R_on(p.LED_R[2])
+		LED_R_on(p.LED_R[4])
+		LED_R_on(p.LED_R[5])
+		LED_R_on(p.LED_R[7])
+		LED_R_on(p.LED_R[9])
+		LED_off(p.LED_R[1])
+		LED_off(p.LED_R[3])
+		LED_off(p.LED_R[6])
+		LED_off(p.LED_R[8])
+		Flip = False
+	else:
+		LED_off(p.LED_R[0])
+		LED_off(p.LED_R[2])
+		LED_off(p.LED_R[4])
+		LED_off(p.LED_R[5])
+		LED_off(p.LED_R[7])
+		LED_off(p.LED_R[9])
+		LED_R_on(p.LED_R[1])
+		LED_R_on(p.LED_R[3])
+		LED_R_on(p.LED_R[6])
+		LED_R_on(p.LED_R[8])
+		Flip = True
+	time.sleep(0.0)
+
+def reset_LED():
+	for i in range(0,10):
+		LED_off(p.LED_R[i])
+		

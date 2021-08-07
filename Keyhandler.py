@@ -58,6 +58,7 @@ def Keyaction():
 			if len(g.Keybuffer) != 0:
 				g.Keybuffer =""	
 				g.Statemachine = 0
+				t.reset_LED()
 				break
 	
 	if g.Statemachine == 10:        #Training 
@@ -116,12 +117,17 @@ def Keyaction():
 		if exit != True:	
 			g.Statemachine = temp
 			t.init_race()
-			t.LED_G_on(6)
-			t.LED_G_on(14)
+#			t.LED_G_on(p.LED_2G)
+#			t.LED_G_on(p.LED_1G)
+			t.LED_G_on(p.LED_G[0])
+			t.LED_G_on(p.LED_G[1])
 			t.Buzzer_out(0.2)
+			
 			t.time.sleep(3)
-			t.LED_off(6)
-			t.LED_off(14)
+			t.LED_off(p.LED_G[0])
+			t.LED_off(p.LED_G[1])
+#			t.LED_off(p.LED_2G)
+#			t.LED_off(p.LED_1G)
 			
 			g.Keybuffer=""
 			return

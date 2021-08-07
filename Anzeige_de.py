@@ -17,7 +17,6 @@ Message = []  #index 0-3: LCD A; index 4-7 LCD B
 def Anzeige():
 	global g
 	global Message
-	last_time=0
 	
 	for i in range(0,8):
 		Message.append("")   #index 0-3: LCD A; index 4-7 LCD B
@@ -146,7 +145,6 @@ def Rennen(): #Statemachine = 30
 	global Message
 	temp=["","","","","","","",""]
 	
-
 	if g.im_rennen == True:
 		min,sec = divmod(t.timer_time(),60)
 		if t.timer_time() > 6000:
@@ -213,6 +211,7 @@ def Ergebnis():
 
 	
 	Rundenzeit()
+	t.toggle_LED()
 
 def Fehlstart():
 	global g
@@ -223,6 +222,7 @@ def Fehlstart():
 	Message[3] ="  Taste druecken    "
 	for i in range(0,4):
 		Message[i+4] = "                    "
+	t.toggle_LED()
 
 def Confirm():
 	Message[0] ="                    "

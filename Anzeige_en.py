@@ -17,6 +17,7 @@ Message = []  #index 0-3: LCD A; index 4-7 LCD B
 def Anzeige():
 	global g
 	global Message
+	
 	for i in range(0,8):
 		Message.append("")   #index 0-3: LCD A; index 4-7 LCD B
 	
@@ -210,6 +211,7 @@ def Ergebnis():
 
 	
 	Rundenzeit()
+	t.toggle_LED()
 
 def Fehlstart():
 	global g
@@ -220,7 +222,8 @@ def Fehlstart():
 	Message[3] ="  Press any Key     "
 	for i in range(0,4):
 		Message[i+4] = "                    "
-
+	t.toggle_LED()
+	
 def Confirm():
 	Message[0] ="                    "
 	Message[1] ="   Stop race?       " 
@@ -278,3 +281,7 @@ def Reset_cursor_b():
 	
 def home_b():
 	lcd_b.home()
+
+
+		
+		
