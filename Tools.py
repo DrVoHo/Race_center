@@ -25,7 +25,8 @@ def Sen_trig(channel,index):
 	else: 
 		g.Sensor_list[index] = False    #Fahrzeug erkannt; Zeitmessung bei Einfahrt in die Lichtschranke
 		LED_W_on(p.LED_W[index])	
-		if g.im_rennen == True and g.Track_in_use[index] == False:
+		dummy = (timer_time() - g.Fahrzeug_list[index].Zeit_Runde_Start)*1000
+		if g.im_rennen == True and g.Track_in_use[index] == False and dummy > g.Debounce:
 			g.Fahrzeug_list[index].Anzahl_Runden += 1		
 			if g.Rennen_Runden - g.Fahrzeug_list[index].Anzahl_Runden-g.Fahrzeug_list[index].Vorsprung<=0 and g.Statemachine == 30:
 					g.gefahrene_Zeit = timer_time()
@@ -54,7 +55,7 @@ def Tools_init():
 		GPIO.setup(i, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 		cb = lambda channel, arg1=p.SEN.index(i): Sen_trig(channel, arg1)
 
-		GPIO.add_event_detect(i, GPIO.FALLING, callback = cb, bouncetime = g.Debounce) 
+		GPIO.add_event_detect(i, GPIO.FALLING, callback = cb, bouncetime = 1) 
 
 		if GPIO.input(i)==True: #kein Fahrzeug. "fallende" (logisch steigende) Flanke wird für Zeitmessung verwendet
 			g.Sensor_list[p.SEN.index(i)]=True
